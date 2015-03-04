@@ -1,0 +1,3 @@
+[submodule "udata"]
+	path = udata
+	url = git@github.com:sonrisesoftware/udata.git
