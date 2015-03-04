@@ -1,7 +1,7 @@
 /*
- * Taskly - A simple tasks app for Ubuntu Touch
+ * Taskly - A simple tasks app for Material Design
  *
- * Copyright (C) 2014 Michael Spencer
+ * Copyright (C) 2015 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 import QtQuick 2.2
+import Material.Extras 0.1
 
 import "../udata"
-import "../qml-extras/dateutils.js" as DateUtils
 
 Document {
     id: task
@@ -90,24 +90,24 @@ Document {
             var dateString = DateUtils.formattedDate(dueDate)
             return dateString
         } else {
-            return ""
+            return "No due date"
         }
     }
 
     property string section: {
         if (completed)
-            return i18n.tr("Completed")
+            return "Completed"
         else if (!hasDueDate)
-            return i18n.tr("No Due Date")
+            return "No Due Date"
         else if (DateUtils.dateIsBefore(dueDate, new Date()))
-            return i18n.tr("Overdue")
+            return "Overdue"
         else if (DateUtils.isToday(dueDate))
-            return i18n.tr("Today")
+            return "Today"
         else if (DateUtils.isTomorrow(dueDate))
-            return i18n.tr("Tomorrow")
+            return "Tomorrow"
         else if (DateUtils.isThisWeek(dueDate))
-            return i18n.tr("This Week")
+            return "This Week"
         else
-            return i18n.tr("Upcoming")
+            return "Upcoming"
     }
 }

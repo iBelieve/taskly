@@ -23,6 +23,8 @@ import Material.ListItems 0.1 as ListItem
 import "../components"
 
 Page {
+	id: page
+
 	title: "Taskly"
 
 	actions: [
@@ -48,7 +50,44 @@ Page {
 		onAddProject: newProjectDialog.show()
 	}
 
+	TasksView {
+		id: tasksView
+
+		project: sidebar.selectedProject
+		upcomingOnly: project == null && !sidebar.showInbox
+		showAllProjects: project == null && !sidebar.showInbox
+
+		anchors.left: sidebar.right
+		anchors.top: parent.top
+		anchors.right: parent.right
+		anchors.bottom: parent.bottom
+	}
+
+	TextField {
+		anchors {
+			left: sidebar.right
+			right: actionButton.left
+			verticalCenter: actionButton.verticalCenter
+			margins: units.dp(16)
+		}
+
+		placeholderText: "Quick add task"
+
+		onAccepted: {
+			var json = {
+                title: text,
+                projectId: sidebar.selectedProject ? sidebar.selectedProject._id : ""
+            }
+
+			database.create("Task", json, page)
+
+			text = ""
+		}
+	}
+
 	ActionButton {
+		id: actionButton
+
 		iconName: "content/add"
 
 		anchors {
@@ -78,7 +117,10 @@ Page {
 		}
 
 		onAccepted: {
-			database.newObject("Project", { title: textField.text })
+			database.newObject("Project", { 
+				title: textField.text,
+				color: Palette.colors.blue["400"]
+			})
 		}
 	}
 }

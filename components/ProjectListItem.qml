@@ -25,10 +25,6 @@ import "../model"
 ListItem.Standard {
 	text: project.title
 
-	selected: selectedItem == "projects/" + project._id
-	
-	onClicked: selectedItem = "projects/" + project._id
-
 	property Project project
 
 	action: Item {
@@ -42,7 +38,7 @@ ListItem.Standard {
 
 		Rectangle {
 			anchors.centerIn: parent
-			color: Palette.colors.green["400"]
+			color: project.color
 			radius: width/2
 			width: units.dp(15)
 			height: width

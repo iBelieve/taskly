@@ -1,7 +1,7 @@
 /*
- * Taskly - A simple tasks app for Ubuntu Touch
+ * Taskly - A simple tasks app for Material Design
  *
- * Copyright (C) 2014 Michael Spencer
+ * Copyright (C) 2015 Michael Spencer <sonrisesoftware@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,9 +24,10 @@ Document {
     id: project
     _type: "Project"
 
-    _properties: ["title"]
+    _properties: ["title", "color"]
 
     property string title
+    property string color
 
     onRemoved: {
         _db.removeWithPredicate('Task', "projectId=='%1'".arg(_id))

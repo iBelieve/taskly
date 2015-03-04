@@ -21,9 +21,15 @@ import Material 0.1
 import Material.ListItems 0.1 as ListItem
 
 import "../udata"
+import "../model"
 
 Sidebar {
 	property string selectedItem: "inbox"
+
+	property Project selectedProject
+	property bool showInbox: selectedItem == "inbox"
+
+	onSelectedItemChanged: selectedProject = null
 
 	signal addProject
 
@@ -40,7 +46,10 @@ Sidebar {
 			iconName: "content/inbox"
 			text: "Inbox"
 			selected: selectedItem == "inbox"
-			onClicked: selectedItem = "inbox"
+			onClicked: {
+				selectedItem = "inbox"
+				selectedProject = null
+			}
 		}
 
 		ListItem.Standard {
@@ -65,6 +74,12 @@ Sidebar {
 			model: projects
 			delegate: ProjectListItem {
 				project: modelData
+
+				selected: selectedItem == "projects/" + project._id
+				onClicked: {
+					selectedItem = "projects/" + project._id
+					selectedProject = modelData
+				}
 			}
 		}
 
